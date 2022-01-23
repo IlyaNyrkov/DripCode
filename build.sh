@@ -1,2 +1,2 @@
 #!/bin/bash
-g++ -o solution $1
+g++ -o run $1
