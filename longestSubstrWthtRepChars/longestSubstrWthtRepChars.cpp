@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <assert.h>
 using namespace std;
 class Solution {
 public:
@@ -37,7 +38,14 @@ public:
     }
 };
 
-int main() {
+bool testSolution(string str, int result) {
+    Solution solution;
+    return solution.lengthOfLongestSubstring(str) == result;
+}
 
+int main() {
+    assert(testSolution("abcabcbb", 3));
+    assert(testSolution("bbbbb", 1));
+    assert(testSolution("pwwkew", 3));
     return 0;
 }
