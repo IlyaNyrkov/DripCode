@@ -1,33 +1,36 @@
 #include <vector>
+#include <climits>
 #include <assert.h>
 using namespace std;
 
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        vector<int> subSums(nums);
-        for (int i = 1; i < subSums.size(); ++i) {
-            subSums[i] += subSums[i - 1];
-        }
-        int maxInd = 0;
-        int minInd = 0;
-        for (int i = 0; i < subSums.size(); ++i) {
-            if (subSums[i] > subSums[maxInd]) {
-                maxInd = i;
+        int sum = 0;
+        int result = INT_MIN;
+        for (int i = 0; i < nums.size(); ++i) {
+            sum += nums[i];
+            if (sum < nums[i]) {
+                sum = nums[i];
             }
-            if (subSums[i] < subSums[minInd]) {
-                minInd = i;
+            if (result < sum) {
+                result = sum;
             }
-        }
-        int result = subSums[maxInd];
-        if ((result < result - subSums[minInd]) && minInd != maxInd) {
-            result -= subSums[minInd];
         }
         return result;
     }
 };
 
-int main() {
+bool testSolution(vector<int> input, int result) {
+    vector<int> arr_copy(input);
+    Solution solution;
+    return solution.maxSubArray(arr_copy) == result;
+}
 
+int main() {
+    assert(testSolution({-2,1,-3,4,-1,2,1,-5,4}, 6));
+    assert(testSolution({1}, 1));
+    assert(testSolution({5,4,-1,7,8}, 23));
+    assert(testSolution({-1, 0}, 0));
     return 0;
 }
